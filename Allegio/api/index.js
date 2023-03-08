@@ -1,9 +1,9 @@
+import cookieParser from "cookie-parser";
+import cors from "cors";
 import dotnev from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import authRoute from "./routes/auth.js";
-
-import cookieParser from "cookie-parser";
 import hotelsRoute from "./routes/hotels.js";
 import roomsRoute from "./routes/room.js";
 import usersRoute from "./routes/users.js";
@@ -21,7 +21,7 @@ const connect = async () => {
 };
 
 app.use(cookieParser());
-
+app.use(cors());
 app.use(express.json());
 
 
@@ -41,7 +41,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(8800, () => {
+app.listen(3000, () => {
     connect();
     console.log("Connected to backend! made some change!!");
   });
