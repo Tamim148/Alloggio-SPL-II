@@ -1,0 +1,31 @@
+.footer {
+  width: 100%;
+  margin-top: 50px;
+  background-color: #025d8b;
+
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 50px;
+}
+
+.footerInputContainer > input {
+  width: 300px;
+  height: 30px;
+  padding: 10px;
+  border: none;
+  margin-right: 10px;
+}
+
+.footerInputContainer > button {
+  height: 50px;
+  background-color: #025d8b;
+
+  color: white;
+  font-weight: 500;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
