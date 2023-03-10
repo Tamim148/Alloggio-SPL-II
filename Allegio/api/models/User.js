@@ -1,4 +1,8 @@
+import Joi from "joi";
+import passwordComplexity from "joi-password-complexity";
+import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
+
 const UserSchema = new mongoose.Schema(
   {
     username: {
@@ -24,4 +28,27 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+
+UserSchema.methods.generateAuthToken = function () {
+	const token = jwt.sign({ _id: this._id }, process.env.JWT, {
+		expiresIn: "7d",
+	});
+	return token;
+};
+
+
 export default mongoose.model("User", UserSchema);
+
+
+export const validate = (data) => {
+	const schema = Joi.object({
+		username: Joi.string().required().label("username"),
+		email: Joi.string().email().required().label("Email"),
+		password: passwordComplexity().required().label("Password"),
+	});
+	return schema.validate(data);
+};
+
+
+
+//module.exports = { User, validate };
