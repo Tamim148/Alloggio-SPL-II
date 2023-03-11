@@ -60,7 +60,7 @@ function Login() {
         </div>
         <div className="right">
           <h1>New Here ?</h1>
-          <Link to="/signup">
+          <Link to="/register">
             <button type="button" className="white_btn">
               Sing Up
             </button>
