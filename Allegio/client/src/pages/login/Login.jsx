@@ -52,6 +52,9 @@ function Login() {
               required
               className="Login_input"
             />
+            <Link to="/forgot-password" style={{ alignSelf: "flex-start" }}>
+              <p style={{ padding: "0 15px" }}>Forgot Password ?</p>
+            </Link>
             {error && <div className="Login_error_msg">{error}</div>}
             <button type="submit" className="Login_green_btn">
               Sing In

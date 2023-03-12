@@ -5,6 +5,7 @@ import Joi from "joi";
 import passwordComplexity from "joi-password-complexity";
 import Token from "../models/token.js";
 import User from "../models/User.js";
+import { sendEmail } from "../utils/sendEmail.js";
 const router=express.Router();
 
 router.post("/", async (req, res) => {
@@ -31,7 +32,9 @@ router.post("/", async (req, res) => {
 		}
 
 		const url = `${process.env.BASE_URL}password-reset/${user._id}/${token.token}/`;
-		await sendEmail(user.email, "Password Reset", url);
+	//	await sendEmail(user.email, "Password Reset", url);
+       await sendEmail(user.email,"Password reset!",url);
+
 
 		res
 			.status(200)
