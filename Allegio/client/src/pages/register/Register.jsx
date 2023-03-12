@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./register.css";
 function Register() {
   const [data, setData] = useState({
@@ -9,7 +9,9 @@ function Register() {
     password: "",
   });
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const [msg, setMsg] = useState("");
+
+  //const navigate = useNavigate();
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
@@ -20,8 +22,8 @@ function Register() {
     try {
       const url = "http://localhost:8800/api/auth/register";
       const { data: res } = await axios.post(url, data);
-      navigate("/login");
-      console.log(res.message);
+      //  navigate("/login");
+      setMsg(res.message);
     } catch (error) {
       if (
         error.response &&
@@ -76,6 +78,7 @@ function Register() {
               className="input"
             />
             {error && <div className="error_msg">{error}</div>}
+            {msg && <div className="success_msg">{msg}</div>}
             <button type="submit" className="green_btn">
               Sign Up
             </button>
