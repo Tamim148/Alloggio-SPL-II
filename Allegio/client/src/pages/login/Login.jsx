@@ -31,8 +31,8 @@ function Login() {
   return (
     <div className="login_container">
       <div className="login_form_container">
-        <div className="left">
-          <form className="form_container" onSubmit={handleSubmit}>
+        <div className="Login_left">
+          <form className="Login_form_container" onSubmit={handleSubmit}>
             <h1>Login to Your Account</h1>
             <input
               type="username"
@@ -41,7 +41,7 @@ function Login() {
               onChange={handleChange}
               value={data.username}
               required
-              className="input"
+              className="Login_input"
             />
             <input
               type="password"
@@ -50,18 +50,18 @@ function Login() {
               onChange={handleChange}
               value={data.password}
               required
-              className="input"
+              className="Login_input"
             />
-            {error && <div className="error_msg">{error}</div>}
-            <button type="submit" className="green_btn">
+            {error && <div className="Login_error_msg">{error}</div>}
+            <button type="submit" className="Login_green_btn">
               Sing In
             </button>
           </form>
         </div>
-        <div className="right">
+        <div className="Login_right">
           <h1>New Here ?</h1>
           <Link to="/register">
-            <button type="button" className="white_btn">
+            <button type="button" className="Login_white_btn">
               Sing Up
             </button>
           </Link>

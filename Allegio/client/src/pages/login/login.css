@@ -16,7 +16,7 @@
     0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
 }
 
-.left {
+.Login_left {
   flex: 2;
   display: flex;
   flex-direction: column;
@@ -27,18 +27,18 @@
   border-bottom-left-radius: 10px;
 }
 
-.form_container {
+.Login_form_container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.form_container h1 {
+.Login_form_container h1 {
   font-size: 40px;
   margin-top: 0;
 }
 
-.input {
+.Login_input {
   outline: none;
   border: none;
   width: 370px;
@@ -49,7 +49,7 @@
   font-size: 14px;
 }
 
-.error_msg {
+.Login_error_msg {
   width: 370px;
   padding: 15px;
   margin: 5px 0;
@@ -60,7 +60,7 @@
   text-align: center;
 }
 
-.right {
+.Login_right {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -71,15 +71,15 @@
   border-bottom-right-radius: 10px;
 }
 
-.right h1 {
+.Login_right h1 {
   margin-top: 0;
   color: white;
   font-size: 40px;
   align-self: center;
 }
 
-.white_btn,
-.green_btn {
+.Login_white_btn,
+.Login_green_btn {
   border: none;
   outline: none;
   padding: 12px 0;
@@ -91,7 +91,7 @@
   cursor: pointer;
 }
 
-.green_btn {
+.Login_green_btn {
   background-color: #3bb19b;
   color: white;
   margin: 10px;
