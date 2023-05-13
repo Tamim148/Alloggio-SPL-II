@@ -1,40 +1,34 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
-import Footer from "../../components/footer/Footer";
-import Header from "../../components/header/Header";
-import Navbar from "../../components/navbar/Navbar";
-import "./single.css";
-
 import {
   faCircleArrowLeft,
   faCircleArrowRight,
   faCircleXmark,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-import { useContext } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Footer from "../../components/footer/Footer";
+import Header from "../../components/header/Header";
+import MailList from "../../components/mailList/MailList";
+import Navbar from "../../components/navbar/Navbar";
 import Reserve from "../../components/reserve/Reserve";
 import { AuthContext } from "../../context/AuthContext";
 import { SearchContext } from "../../context/SearchContext";
-import useFetch from "../../hooks/useFetch.js";
-const Single = () => {
+import useFetch from "../../hooks/useFetch";
+import "./hotel.css";
+
+const Hotel = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const navigate = useNavigate();
+
+  const { data, loading, error } = useFetch(`/hotels/find/${id}`);
   const { user } = useContext(AuthContext);
-  const location = useLocation();
-  const id = location.pathname.split("/")[2];
+  const navigate = useNavigate();
 
-  const { data, loading, error } = useFetch(
-    `http://localhost:8800/api/hotels/find/${id}`
-  );
-
-  const { date, options } = useContext(SearchContext);
-  console.log(date);
-  const date1 = date[0].endDate;
-  const date2 = date[0].startDate;
-  // console.log(date2);
+  const { dates, options } = useContext(SearchContext);
 
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
   function dayDifference(date1, date2) {
@@ -43,7 +37,7 @@ const Single = () => {
     return diffDays;
   }
 
-  const days = dayDifference(date1, date2);
+  const days = dayDifference(dates[0].endDate, dates[0].startDate);
 
   const handleOpen = (i) => {
     setSlideNumber(i);
@@ -62,13 +56,14 @@ const Single = () => {
     setSlideNumber(newSlideNumber);
   };
 
-  const handleClick = () => {
+  function handleClick() {
     if (user) {
       setOpenModal(true);
     } else {
       navigate("/login");
     }
-  };
+  }
+
   return (
     <div>
       <Navbar />
@@ -103,7 +98,6 @@ const Single = () => {
               />
             </div>
           )}
-
           <div className="hotelWrapper">
             <button className="bookNow">Reserve or Book Now!</button>
             <h1 className="hotelTitle">{data.name}</h1>
@@ -149,14 +143,13 @@ const Single = () => {
               </div>
             </div>
           </div>
-
+          <MailList />
           <Footer />
         </div>
       )}
-
       {openModal && <Reserve setOpen={setOpenModal} hotelId={id} />}
     </div>
   );
 };
 
-export default Single;
+export default Hotel;

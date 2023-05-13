@@ -23,10 +23,13 @@ export const register = async (req, res, next) => {
 
        user = await newUser.save()
 
-       const token = await new Token({
+       const token = new Token({
         userId: user._id,
         token: crypto.randomBytes(32).toString("hex"),
-      }).save();
+      });
+      
+      await token.save();
+
       const url = `${process.env.BASE_URL}auth/${user.id}/verify/${token.token}`;
       await sendEmail(user.email, "Verify Email", url);
         
@@ -48,8 +51,9 @@ export const register = async (req, res, next) => {
         if(!isPasswordCorrect) return next(createError(400,"Incorrect password, please give valid values!"))
           
 
-        const istheretoken = await Token.findOne({ userId: user._id });
-        if(!istheretoken) return next(createError(400,"You have not verified your email , please check your mail and verify first!"))
+        // const istheretoken = await Token.findOne({ userId: user._id });
+        //  console.log(istheretoken)
+        // if(!istheretoken) return next(createError(400,"You have not verified your email , please check your mail and verify first!"))
 
       /*  if (!user.verified) {
           let token = await Token.findOne({ userId: user._id });
@@ -93,15 +97,15 @@ export const register = async (req, res, next) => {
     
         const token = await Token.findOne({
           userId: user._id,
-          token: req.params.token,
         });
         if (!token) return res.status(400).send({ message: "Invalid link" });
     
-        await User.updateOne({ _id: user._id, verified: true });
-        await token.remove();
+        await User.updateOne({ _id: user._id }, {$set:{verified: true}});
+        await Token.deleteOne(token);
     
         res.status(200).send({ message: "Email verified successfully" });
       } catch (error) {
+        console.log(error)
         res.status(500).send({ message: "Internal Server Error" });
       }
     };

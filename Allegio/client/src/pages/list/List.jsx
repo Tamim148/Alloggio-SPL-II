@@ -10,10 +10,10 @@ import "./list.css";
 
 const List = () => {
   const location = useLocation();
-  const [destination, setDestination] = useState(location.state.destination);
-  const [date, setDate] = useState(location.state.date);
+  const [destination, setDestination] = useState(location.state?.destination);
+  const [date, setDate] = useState(location.state?.date);
   const [openDate, setOpenDate] = useState(false);
-  const [options, setOptions] = useState(location.state.options);
+  const [options, setOptions] = useState(location.state?.options);
 
   const { data, loading, error, reFetch } = useFetch(
     `http://localhost:8800/api/hotels?city=${destination}`
