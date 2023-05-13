@@ -1,10 +1,13 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 import "./login.css";
 function Login() {
   const [data, setData] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
+  const { dispatch } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
@@ -15,9 +18,13 @@ function Login() {
     try {
       const url = "http://localhost:8800/api/auth/login";
       const { data: res } = await axios.post(url, data);
-      localStorage.setItem("token", res.data);
-      window.location = "/";
+
+      localStorage.setItem("token", res.token);
+      // set user from the database to context
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.details });
+      navigate("/", { replace: true });
     } catch (error) {
+      console.log(error);
       if (
         error.response &&
         error.response.status >= 400 &&
@@ -57,7 +64,7 @@ function Login() {
             </Link>
             {error && <div className="Login_error_msg">{error}</div>}
             <button type="submit" className="Login_green_btn">
-              Sing In
+              Sign In
             </button>
           </form>
         </div>
@@ -65,7 +72,7 @@ function Login() {
           <h1>New Here ?</h1>
           <Link to="/register">
             <button type="button" className="Login_white_btn">
-              Sing Up
+              Sign Up
             </button>
           </Link>
         </div>

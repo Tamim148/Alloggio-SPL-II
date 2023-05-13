@@ -40,15 +40,15 @@ export const register = async (req, res, next) => {
   export const login = async (req, res, next) => {
     try{
         
-        const user=await User.findOne({username:req.body.username})
+        const user = await User.findOne({username:req.body.username})
         if(!user) return next(createError(404,"User not found, please give valid values!"))
         //const useremail=await User.findOne({username:req.body.email})
        // if(!useremail) return next(createError(404,"Invalid Email!!"))
-        const isPasswordCorrect= await bcrypt.compareSync(req.body.password,user.password)
+        const isPasswordCorrect= bcrypt.compareSync(req.body.password,user.password)
         if(!isPasswordCorrect) return next(createError(400,"Incorrect password, please give valid values!"))
           
 
-        const istheretoken=await Token.findOne({ userId: user._id });
+        const istheretoken = await Token.findOne({ userId: user._id });
         if(!istheretoken) return next(createError(400,"You have not verified your email , please check your mail and verify first!"))
 
       /*  if (!user.verified) {
@@ -74,14 +74,11 @@ export const register = async (req, res, next) => {
           process.env.JWT
         );
        
-
+      
         const { password, isAdmin, ...otherDetails } = user._doc;
         res
-          .cookie("access_token", token, {
-            httpOnly: true,
-          })
           .status(200)
-          .json({ details: { ...otherDetails }, isAdmin });
+          .json({ details: { ...otherDetails }, isAdmin, token });
       } catch (err) {
         next(err);
       }
@@ -108,3 +105,29 @@ export const register = async (req, res, next) => {
         res.status(500).send({ message: "Internal Server Error" });
       }
     };
+
+
+
+    export const verifyToken = async (req, res, next) => {
+      try {
+        const decoded = jwt.verify(req.body.token, process.env.JWT);
+        // check if the token expired n jwt
+        if (decoded.exp < Date.now() / 1000) {
+          return res.status(401).json({
+            message: "Token expired",
+            }); 
+            }
+          
+          const user = await User.findById(decoded.id);
+
+          // if the token is valid
+          return res.status(200)
+          .json({
+            message: "Token verified",
+            user,
+            });
+      } catch(error) {
+        console.log(error.message)
+        return res.status(401).send({ message: "Invalid Token" });
+      }
+    }

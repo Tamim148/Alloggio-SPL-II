@@ -12,6 +12,7 @@ import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 import { SearchContext } from "../../context/SearchContext";
 import "./header.css";
 
@@ -42,7 +43,7 @@ const Header = ({ type }) => {
       };
     });
   };
-
+  const { user } = useContext(AuthContext);
   const { dispatch } = useContext(SearchContext);
   const handleSearch = () => {
     dispatch({ type: "NEW_SEARCH", payload: { destination, date, options } });
@@ -77,10 +78,16 @@ const Header = ({ type }) => {
             <h1 className="headerTitle">
               Hello there , how can we help you today ?
             </h1>
-            <p className="headerDesc">
-              Wanna visit Bangladesh ? Then simply join us today
-            </p>
-            <button className="headerBtn">Sign in / Register</button>
+            {!(user && user.email) ? (
+              <>
+                <p className="headerDesc">
+                  Wanna visit Bangladesh ? Then simply join us today
+                </p>
+                <button className="headerBtn">Sign in / Register</button>
+              </>
+            ) : (
+              ""
+            )}
             <div className="headerSearch">
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />
