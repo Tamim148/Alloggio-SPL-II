@@ -17,7 +17,14 @@ const RoomSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    roomNumbers: [{ number: Number, unavailableDates: {type: [Date]}}],
+    roomNumbers: [{ number: Number }],
+    currentBookings: {
+      roomId: { type: String },
+      bookingId: { type: String, },
+      userId: { type: String, },
+      fromdate: { type: String, },
+      todate: { type: String, },
+    },
   },
   { timestamps: true }
 );

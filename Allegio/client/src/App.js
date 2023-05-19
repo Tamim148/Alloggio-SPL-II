@@ -7,6 +7,7 @@ import Home from "./pages/home/Home";
 import List from "./pages/list/List";
 import Login from "./pages/login/Login";
 import PasswordReset from "./pages/passwordreset/Passwordreset";
+import Profile from "./pages/profile/Profile";
 import Register from "./pages/register/Register";
 import Single from "./pages/single/Single";
 function App() {
@@ -21,6 +22,7 @@ function App() {
      <Route path="/auth/:id/verify/:token" element={<EmailVerify/>}/>
      <Route path="/forgot-password" element={<ForgotPassword/>}/>
      <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
+     <Route path="/profile/:id" element={<Profile/>} />
      </Routes>
     </BrowserRouter>
   );

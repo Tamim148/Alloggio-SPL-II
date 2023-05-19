@@ -1,3 +1,5 @@
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
@@ -31,10 +33,14 @@ const Navbar = () => {
             </>
           ) : (
             <button className="navButton" onClick={logout}>
-              {" "}
-              Logout{" "}
+              Logout
             </button>
           )}
+          <Link to={`/profile/${user._id}`}>
+            <button className="profileButton">
+              <FontAwesomeIcon icon={faUser} />
+            </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import dotnev from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import authRoute from "./routes/auth.js";
+import bookingsRoute from "./routes/booking.js";
 import hotelsRoute from "./routes/hotels.js";
 import passwordresetRoute from "./routes/password-Reset.js";
 import roomsRoute from "./routes/room.js";
@@ -30,6 +31,7 @@ app.use("/api/auth",authRoute)
 app.use("/api/users", usersRoute);
 app.use("/api/hotels", hotelsRoute);
 app.use("/api/rooms", roomsRoute);
+app.use("/api/booking", bookingsRoute);
 app.use("/api/password-Reset",passwordresetRoute);
 
 app.use((err, req, res, next) => {

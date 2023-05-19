@@ -18,10 +18,24 @@
   font-weight: 500;
 }
 
+.navItems {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
 .navButton {
   margin-left: 20px;
   border: none;
   padding: 5px 10px;
   cursor: pointer;
   color: #025d8b;
+}
+.profileButton {
+  display: block;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  background-color: gainsboro;
+  border: 1px solid white;
+  cursor: pointer;
 }

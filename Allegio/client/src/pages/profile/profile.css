@@ -1,0 +1,41 @@
+.profileHeading {
+  padding: 1rem 2rem;
+  background-color: #025d8b;
+  color: white;
+}
+.profileInfoWrapper {
+  padding: 1rem;
+}
+.profileInfo {
+  padding: 1rem;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+}
+.bookingsSection {
+  padding: 1rem 2rem;
+}
+.bookingHeading {
+  padding: 1rem 2rem;
+}
+.bookingsWrapper {
+  padding: 1rem;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+}
+.booking {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  padding: 1rem;
+  border: 1px solid gainsboro;
+}
+.cancelBoking {
+  padding: 0.75rem 2rem;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: firebrick;
+  color: white;
+  border: none;
+}
