@@ -40,7 +40,7 @@ export const createHotel = async (req, res, next) => {
     }
   };
   export const getHotels = async (req, res, next) => {
-    const { min, max, ...others } = req.query;
+    const { min, max,limit, ...others } = req.query;
     
     try {
       console.log(others)
