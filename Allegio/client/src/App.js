@@ -10,6 +10,7 @@ import PasswordReset from "./pages/passwordreset/Passwordreset";
 import Profile from "./pages/profile/Profile";
 import Hotels from "./pages/property/Hotels";
 import Property from "./pages/property/Property";
+import PropertyBycity from "./pages/propertyBycity/propertyBycity";
 import Register from "./pages/register/Register";
 import Single from "./pages/single/Single";
 function App() {
@@ -27,6 +28,7 @@ function App() {
      <Route path="/profile/:id" element={<Profile/>} />
      <Route path="/property/:type" element={<Property/>} />
      <Route path="/property/hotels/:id" element={<Hotels/>} />
+     <Route path="/propertybycity/:city" element={<PropertyBycity/>} />
      </Routes>
     </BrowserRouter>
   );

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import "./fetured.css";
 
@@ -12,17 +13,22 @@ const Featured = () => {
         "Loading please wait"
       ) : (
         <>
-          <div className="featuredItem">
-            <img
-              src="https://q-xx.bstatic.com/xdata/images/city/300x240/666853.jpg?k=b2212159e829c00b8b19af72b6211b25325d70811829e2eb4ef1045f8a568be5&o="
-              alt=""
-              className="featuredImg"
-            />
-            <div className="featuredTitles">
-              <h1>Coxs Bazar</h1>
-              <h2>{data[0]} properties</h2>
+          <Link
+            style={{ textDecoration: "none", color: "black" }}
+            to={"/propertybycity/coxsbazar"}
+          >
+            <div className="featuredItem">
+              <img
+                src="https://q-xx.bstatic.com/xdata/images/city/300x240/666853.jpg?k=b2212159e829c00b8b19af72b6211b25325d70811829e2eb4ef1045f8a568be5&o="
+                alt=""
+                className="featuredImg"
+              />
+              <div className="featuredTitles">
+                <h1>Coxs Bazar</h1>
+                <h2>{data[0]} properties</h2>
+              </div>
             </div>
-          </div>
+          </Link>
 
           <div className="featuredItem">
             <img
