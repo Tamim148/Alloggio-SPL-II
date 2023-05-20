@@ -8,6 +8,8 @@ import List from "./pages/list/List";
 import Login from "./pages/login/Login";
 import PasswordReset from "./pages/passwordreset/Passwordreset";
 import Profile from "./pages/profile/Profile";
+import Hotels from "./pages/property/Hotels";
+import Property from "./pages/property/Property";
 import Register from "./pages/register/Register";
 import Single from "./pages/single/Single";
 function App() {
@@ -23,6 +25,8 @@ function App() {
      <Route path="/forgot-password" element={<ForgotPassword/>}/>
      <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
      <Route path="/profile/:id" element={<Profile/>} />
+     <Route path="/property/:type" element={<Property/>} />
+     <Route path="/property/hotels/:id" element={<Hotels/>} />
      </Routes>
     </BrowserRouter>
   );

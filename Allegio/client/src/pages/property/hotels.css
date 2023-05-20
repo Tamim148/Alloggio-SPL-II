@@ -1,0 +1,24 @@
+.hotelSection {
+  display: grid;
+  min-height: 100vh;
+}
+.hotelContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+.hotelWrapper {
+  width: 100%;
+  max-width: 1024px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+.Modal {
+  z-index: 2;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 1rem;
+}
