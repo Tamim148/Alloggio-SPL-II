@@ -30,28 +30,39 @@ const Featured = () => {
             </div>
           </Link>
 
-          <div className="featuredItem">
-            <img
-              src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/16/5e/59/rangamati-hanging-bridge.jpg?w=700&h=500&s=1"
-              alt=""
-              className="featuredImg"
-            />
-            <div className="featuredTitles">
-              <h1>Rangamati</h1>
-              <h2>{data[1]} properties</h2>
+          <Link
+            style={{ textDecoration: "none", color: "black" }}
+            to={"/propertybycity/rangamati"}
+          >
+            <div className="featuredItem">
+              <img
+                src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/16/5e/59/rangamati-hanging-bridge.jpg?w=700&h=500&s=1"
+                alt=""
+                className="featuredImg"
+              />
+              <div className="featuredTitles">
+                <h1>Rangamati</h1>
+                <h2>{data[1]} properties</h2>
+              </div>
             </div>
-          </div>
-          <div className="featuredItem">
-            <img
-              src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0d/77/22/14/amiakhum.jpg?w=700&h=500&s=1"
-              alt=""
-              className="featuredImg"
-            />
-            <div className="featuredTitles">
-              <h1>Bandarban</h1>
-              <h2>{data[2]} properties</h2>
+          </Link>
+
+          <Link
+            style={{ textDecoration: "none", color: "black" }}
+            to={"/propertybycity/bandarban"}
+          >
+            <div className="featuredItem">
+              <img
+                src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0d/77/22/14/amiakhum.jpg?w=700&h=500&s=1"
+                alt=""
+                className="featuredImg"
+              />
+              <div className="featuredTitles">
+                <h1>Bandarban</h1>
+                <h2>{data[2]} properties</h2>
+              </div>
             </div>
-          </div>
+          </Link>
         </>
       )}
     </div>
