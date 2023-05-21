@@ -14,6 +14,7 @@
   overflow: hidden;
   height: 250px;
   flex: 1;
+  box-shadow: 5px 5px 5px black;
 }
 
 .featuredImg {
@@ -23,7 +24,30 @@
 }
 
 .featuredTitles {
+  height: 50px;
+  width: 100%;
   position: absolute;
-  bottom: 20px;
-  left: 20px;
+  bottom: 0px;
+  left: 0px;
+  text-align: center;
+  box-sizing: border-box;
+  background: rgb(27, 27, 27, 0.5);
+  bottom: 240 px;
+  color: white;
+  transition: 0.5s;
+}
+
+.featuredItem:hover {
+  cursor: pointer;
+}
+
+.featuredItem:hover .featuredTitles {
+  height: 80px;
+  width: 100%;
+  background: black;
+}
+
+.card:hover .h3 {
+  visibility: visible;
+  opacity: 1;
 }

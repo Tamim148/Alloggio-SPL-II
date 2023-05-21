@@ -4,6 +4,8 @@
   display: flex;
   justify-content: center;
   position: relative;
+  border-bottom-left-radius: 150px;
+  border-bottom-right-radius: 150px;
 }
 
 .headerContainer {
@@ -45,6 +47,10 @@
   border: none;
   padding: 10px;
   cursor: pointer;
+}
+
+.headerBtn:hover {
+  color: rgb(74, 93, 239);
 }
 
 .headerSearch {

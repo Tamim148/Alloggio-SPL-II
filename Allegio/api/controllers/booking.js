@@ -55,7 +55,7 @@ export const getBookings = async (req, res, next) => {
     const { userId } = req.body;
     console.log(userId);
     const bookings = await Booking.find({ userId });
-    //get room names also
+    
     console.log(bookings);
     res.status(200).json(bookings);
   } catch (error) {
@@ -68,7 +68,22 @@ export const cancelBooking = async (req, res, next) => {
   try {
     const { bookingId } = req.body;
     const cancelledBooking = await Booking.findByIdAndDelete(bookingId);
-    
+    const updatedRoom = await Room.updateOne(
+      {
+        "currentBookings.bookingId": bookingId,
+      },
+      {
+        $set: {
+          currentBookings: {
+            roomId:"",
+            bookingId: "",
+            fromdate: "",
+            todate: "",
+            userId: "",
+          },
+        },
+      }
+    );
     res
       .status(200)
       .json({ message: "Booking has been cancelled", booking: cancelledBooking });

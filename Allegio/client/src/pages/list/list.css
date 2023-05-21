@@ -76,8 +76,10 @@
   width: 100%;
   font-weight: 500;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 .listResult {
   flex: 3;
+  padding-left: 20px;
 }
