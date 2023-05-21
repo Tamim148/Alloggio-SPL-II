@@ -9,7 +9,7 @@ import { SearchContext } from "../../context/SearchContext";
 import useFetch from "../../hooks/useFetch";
 import "./reserve.css";
 
-const Reserve = ({ setOpen, hotelId }) => {
+const Reserve = ({ setOpen, hotelId, totalAmount }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
   const { data, loading, error } = useFetch(
     `http://localhost:8800/api/hotels/room/${hotelId}`
@@ -113,16 +113,15 @@ const Reserve = ({ setOpen, hotelId }) => {
           userId: user._id,
           fromdate: date[0].startDate,
           todate: date[0].endDate,
-          totalAmount: 400,
+          totalAmount: totalAmount || 60,
           totalDays: getTotalDays(date[0].startDate, date[0].endDate),
         });
         console.log(res.data);
       });
-
       // console.log(selectedRooms);
 
       setOpen(false);
-      navigate("/");
+      // navigate("/");
     } catch (err) {
       console.log(err);
     }

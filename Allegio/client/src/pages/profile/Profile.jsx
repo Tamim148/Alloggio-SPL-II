@@ -79,9 +79,7 @@ function Profile() {
             <div className="booking" key={booking._id}>
               <div key={booking._id}>
                 <small>{i + 1}.</small>
-                <p>
-                  <b>Price:</b> {booking.totalAmount}$
-                </p>
+                <p>{/* <b>Price:</b> {booking.totalAmount}$ */}</p>
                 <p>
                   From <b>{booking.fromdate}</b> to <b>{booking.todate}</b> for{" "}
                   {booking.totalDays} days
