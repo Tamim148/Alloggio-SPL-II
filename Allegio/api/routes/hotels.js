@@ -9,7 +9,7 @@ router.post("/", verifyAdmin, createHotel)
 
 //UPDATE
 
-router.put("/:id", verifyAdmin, updateHotel)
+router.put("/:id", updateHotel)
   
 //DELETE
 

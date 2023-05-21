@@ -12,6 +12,7 @@ import PasswordReset from "./pages/passwordreset/Passwordreset";
 import Profile from "./pages/profile/Profile";
 import Hotels from "./pages/property/Hotels";
 import Property from "./pages/property/Property";
+import PropertyBycity from "./pages/propertyBycity/propertyBycity";
 import Register from "./pages/register/Register";
 import Single from "./pages/single/Single";
 
@@ -29,6 +30,8 @@ function App() {
      <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
      <Route path="/profile/:id" element={<Profile/>} />
      <Route path="/property/:type" element={<Property/>} />
+     <Route path="/propertybycity/:city" element={<PropertyBycity/>} />
+     <Route path="/propertybycity/hotels/:id" element={<Hotels/>} />
      <Route path="/property/hotels/:id" element={<Hotels/>} />
      <Route path="/listproperty" element={<ListProperty/>} />
      <Route path="/admin" element={<Admin/>} />

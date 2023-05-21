@@ -13,6 +13,7 @@ export const createHotel = async (req, res, next) => {
       featured: req.body.featured,
       title: req.body.title,
       type: req.body.type,
+      rooms:req.body.rooms
     });
 
 
@@ -30,6 +31,7 @@ export const createHotel = async (req, res, next) => {
         { $set: req.body },
         { new: true }
       );
+      console.log(req.params.id)
       res.status(200).json(updatedHotel);
     } catch (err) {
       next(err);

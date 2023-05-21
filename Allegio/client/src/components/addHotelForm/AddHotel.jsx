@@ -14,24 +14,13 @@ function AddHotel({ page }) {
   const [distance, setDistance] = useState("");
   const [desc, setDesc] = useState("");
   const [title, setTitle] = useState("");
+  const [rooms, setRooms] = useState([]);
   const [featured, setFeatured] = useState(false);
 
   const navigate = useNavigate();
 
   const addHotel = async (e) => {
     e.preventDefault();
-    // console.log(
-    // name,
-    // city,
-    //address,
-    // type,
-    //cheapestPrice,
-    //distance,
-    // featured,
-    //desc,
-    // title
-    // );
-
     try {
       const response = await axios.post("http://localhost:8800/api/hotels", {
         user,
@@ -45,6 +34,7 @@ function AddHotel({ page }) {
         featured,
         title,
         type,
+        rooms,
       });
       console.log(response.data);
     } catch (error) {

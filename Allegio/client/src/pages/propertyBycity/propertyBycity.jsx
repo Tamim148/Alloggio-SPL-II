@@ -29,7 +29,7 @@ function PropertyBycity() {
         <hr className="hr" />
         {data.map((propertybycity) => (
           <Link
-            to={`/propertybycity/city/${propertybycity._id}`}
+            to={`/propertybycity/hotels/${propertybycity._id}`}
             style={{ textDecoration: "none", color: "black" }}
           >
             <SearchItem

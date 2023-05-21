@@ -17,6 +17,7 @@ function Admin() {
   const [hotelBookings, setBookings] = useState([]);
   const [users, setUsers] = useState([]);
   const [hotel, setHotels] = useState([]);
+  const [room, setRooms] = useState([]);
 
   useEffect(() => {
     async function getUsers() {
@@ -43,7 +44,7 @@ function Admin() {
   }, [hotels]);
 
   useEffect(() => {
-    console.log(rooms);
+    setRooms(rooms);
   }, [rooms]);
 
   const cancelBooking = async (bookingId) => {
@@ -94,6 +95,41 @@ function Admin() {
     console.log(hotelId);
   };
 
+  const deleteroom = async (roomId) => {
+    try {
+      const res = await axios.delete(
+        `http://localhost:8800/api/rooms/${roomId}`
+      );
+      console.log(res.data);
+      setRooms((v) => {
+        return v.filter((__room) => __room._id !== roomId);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const verifyHotel = async (hotelId) => {
+    try {
+      const res = await axios.put(
+        `http://localhost:8800/api/hotels/${hotelId}`,
+        {
+          featured: true,
+        }
+      );
+      console.log(res.data);
+      setHotels((v) => {
+        return v.map((hotel) => {
+          if (hotel._id === hotelId) hotel.featured = true;
+
+          return hotel;
+        });
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   if (!user.isAdmin)
     return (
       <>
@@ -132,7 +168,7 @@ function Admin() {
                       <b>Price:</b> {booking.totalAmount}$
                     </p>
                     <p>
-                      From <b>{booking.fromdate}</b> to <b>{booking.todate}</b>{" "}
+                      From <b>{booking.fromdate}</b> to <b>{booking.todate}</b>
                       for {booking.totalDays} days
                     </p>
                     <br />
@@ -214,20 +250,19 @@ function Admin() {
                         className="deleteHotelButton"
                         onClick={() => deleteHotel(hotel._id)}
                       >
-                        {" "}
                         Delete hotel
                       </button>
                     </div>
-
-                    <div style={{ textAlign: "end", padding: "5px" }}>
-                      <button
-                        className="deleteHotelButton"
-                        onClick={() => deleteHotel(hotel._id)}
-                      >
-                        {" "}
-                        verify hotel
-                      </button>
-                    </div>
+                    {!hotel.featured && (
+                      <div style={{ textAlign: "end", padding: "5px" }}>
+                        <button
+                          className="deleteHotelButton"
+                          onClick={() => verifyHotel(hotel._id)}
+                        >
+                          Verify hotel
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
@@ -250,6 +285,15 @@ function Admin() {
                   <br />
                   <p>Max People: {room.maxPeople}</p>
                   <p>Price: {room.price}</p>
+
+                  <div style={{ textAlign: "end" }}>
+                    <button
+                      className="deleteHotelButton"
+                      onClick={() => deleteroom(room._id)}
+                    >
+                      Delete room
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -265,7 +309,7 @@ function Admin() {
           <div className="PanelWrapper">
             <h3>Add Room</h3>
             <div className="Panel">
-              <AddRoom />
+              <AddRoom hotels={hotel} />
             </div>
           </div>
         </div>

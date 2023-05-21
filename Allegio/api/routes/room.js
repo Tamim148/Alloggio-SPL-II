@@ -5,7 +5,7 @@ const router=express.Router();
 
 
 //CREATE
-router.post("/:hotelid", verifyAdmin, createRoom)
+router.post("/:hotelid",  createRoom)
 
 
 //UPDATE
@@ -14,7 +14,7 @@ router.put("/:hotelid", verifyAdmin, updateRoom)
   
 //DELETE
 
-router.delete("/:id/:hotelid", verifyAdmin, deleteRoom)
+router.delete("/:id",  deleteRoom)
 //GET
 
 router.get("/:id", getRoom)
