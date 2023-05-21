@@ -2,8 +2,20 @@
 import Hotel from "../models/Hotel.js";
 import Room from "../models/Room.js";
 export const createHotel = async (req, res, next) => {
-    const newHotel = new Hotel(req.body);
-  
+    
+    const newHotel = new Hotel({
+      name: req.body.name,
+      address: req.body.address,
+      cheapestPrice: req.body.cheapestPrice,
+      city: req.body.city,
+      desc: req.body.desc,
+      distance: req.body.distance,
+      featured: req.body.featured,
+      title: req.body.title,
+      type: req.body.type,
+    });
+
+
     try {
       const savedHotel = await newHotel.save();
       res.status(200).json(savedHotel);
@@ -26,6 +38,7 @@ export const createHotel = async (req, res, next) => {
   export const deleteHotel = async (req, res, next) => {
     try {
       await Hotel.findByIdAndDelete(req.params.id);
+      console.log(req.params.id)
       res.status(200).json("Hotel has been deleted.");
     } catch (err) {
       next(err);
@@ -34,6 +47,7 @@ export const createHotel = async (req, res, next) => {
   export const getHotel = async (req, res, next) => {
     try {
       const hotel = await Hotel.findById(req.params.id);
+      console.log(hotel, )
       res.status(200).json(hotel);
     } catch (err) {
       next(err);

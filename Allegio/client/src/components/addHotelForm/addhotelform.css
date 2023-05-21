@@ -1,0 +1,36 @@
+.apAddHotelButton {
+  background-color: rgb(58, 155, 234);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+.apRoomCreateInput input {
+  padding: 0.75rem;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  width: 95%;
+  margin-bottom: 0.75rem;
+}
+.apRoomCreateInput textarea {
+  padding: 0.75rem;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  width: 95%;
+  margin-bottom: 0.75rem;
+}
+.apRoomCreateInput {
+  display: grid;
+}
+.apAddRoomButton {
+  background-color: lawngreen;
+  padding: 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+.SentToAdminMessage {
+  background-color: #f1f1f1;
+  padding: 1rem;
+  border-radius: 5px;
+}

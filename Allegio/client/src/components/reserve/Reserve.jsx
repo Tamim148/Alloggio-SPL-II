@@ -15,7 +15,7 @@ const Reserve = ({ setOpen, hotelId }) => {
     `http://localhost:8800/api/hotels/room/${hotelId}`
   );
 
-  const { date } = useContext(SearchContext);
+  const { date, options } = useContext(SearchContext);
   const { user } = useContext(AuthContext);
 
   const getTotalDays = (startDate, endDate) => {
@@ -24,6 +24,7 @@ const Reserve = ({ setOpen, hotelId }) => {
     const difference = end.getTime() - start.getTime();
     return Math.ceil(difference / (1000 * 3600 * 24));
   };
+  let room_number = options.room;
 
   // const getDatesInRange = (startDate, endDate) => {
   //   const start = new Date(startDate);
@@ -54,21 +55,42 @@ const Reserve = ({ setOpen, hotelId }) => {
 
     return !booked;
   };
-
+  const [checkboxes, setCheckboxes] = useState([]);
+  let flag = 0;
+  let i = 0;
+  console.log(checkboxes.length);
   const handleSelect = (e) => {
     const checked = e.target.checked;
     const value = e.target.value;
-
+    if (checked) {
+      // Add the checked checkbox value to the array
+      setCheckboxes((prevCheckboxes) => [...prevCheckboxes, value]);
+    } else {
+      // Remove the unchecked checkbox value from the array
+      setCheckboxes((prevCheckboxes) =>
+        prevCheckboxes.filter((checkbox) => checkbox !== value)
+      );
+    }
+    if (checkboxes.length === room_number) {
+      flag = 1;
+    }
     setSelectedRooms(
       checked
         ? [...selectedRooms, value]
         : selectedRooms.filter((item) => item !== value)
     );
 
+    console.log(i);
     console.log(data);
   };
 
   const navigate = useNavigate();
+
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
 
   const handleClick = async () => {
     try {
@@ -134,7 +156,11 @@ const Reserve = ({ setOpen, hotelId }) => {
                         type="checkbox"
                         value={roomNumber._id}
                         onChange={handleSelect}
-                        disabled={!isAvailable(roomNumber._id, data)}
+                        disabled={
+                          !isAvailable(roomNumber._id, data) ||
+                          (checkboxes.length === room_number &&
+                            isChecked === false)
+                        }
                       />
                     </div>
                   ))}

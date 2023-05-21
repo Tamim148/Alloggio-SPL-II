@@ -92,3 +92,12 @@ export const cancelBooking = async (req, res, next) => {
     res.status(500);
   }
 };
+export const getAllBookings = async (req, res, next) => {
+  try {
+    const bookings = await Booking.find();
+    res.status(200).json(bookings);
+  } catch (error) {
+    console.log(error)
+    res.status(500);    
+  }
+}

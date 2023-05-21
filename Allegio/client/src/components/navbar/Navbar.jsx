@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import "./navbar.css";
+
 const Navbar = () => {
   const { user, dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -18,7 +19,9 @@ const Navbar = () => {
           <span className="logo">Allegio</span>
         </Link>
         <div className="navItems">
-          <button className="navButton">List your Property</button>
+          <Link to={"/listproperty"}>
+            <button className="navButton">List your Property</button>
+          </Link>
           {!(user && user.email) ? (
             <>
               <button
@@ -32,15 +35,17 @@ const Navbar = () => {
               </button>
             </>
           ) : (
-            <button className="navButton" onClick={logout}>
-              Logout
-            </button>
+            <>
+              <button className="navButton" onClick={logout}>
+                Logout
+              </button>
+              <Link to={`/profile/${user._id}`}>
+                <button className="profileButton">
+                  <FontAwesomeIcon icon={faUser} />
+                </button>
+              </Link>
+            </>
           )}
-          <Link to={`/profile/${user._id}`}>
-            <button className="profileButton">
-              <FontAwesomeIcon icon={faUser} />
-            </button>
-          </Link>
         </div>
       </div>
     </div>

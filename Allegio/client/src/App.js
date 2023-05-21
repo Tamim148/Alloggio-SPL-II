@@ -1,18 +1,20 @@
 import {
   BrowserRouter, Route, Routes
 } from "react-router-dom";
+import Admin from "./pages/admin/Admin";
 import EmailVerify from "./pages/EmailVerify/EmailVerify";
 import ForgotPassword from "./pages/forgotpassword/Forgotpassword";
 import Home from "./pages/home/Home";
 import List from "./pages/list/List";
+import ListProperty from "./pages/listproperty/ListProperty";
 import Login from "./pages/login/Login";
 import PasswordReset from "./pages/passwordreset/Passwordreset";
 import Profile from "./pages/profile/Profile";
 import Hotels from "./pages/property/Hotels";
 import Property from "./pages/property/Property";
-import PropertyBycity from "./pages/propertyBycity/propertyBycity";
 import Register from "./pages/register/Register";
 import Single from "./pages/single/Single";
+
 function App() {
   return (
     <BrowserRouter>
@@ -28,7 +30,8 @@ function App() {
      <Route path="/profile/:id" element={<Profile/>} />
      <Route path="/property/:type" element={<Property/>} />
      <Route path="/property/hotels/:id" element={<Hotels/>} />
-     <Route path="/propertybycity/:city" element={<PropertyBycity/>} />
+     <Route path="/listproperty" element={<ListProperty/>} />
+     <Route path="/admin" element={<Admin/>} />
      </Routes>
     </BrowserRouter>
   );

@@ -1,0 +1,24 @@
+.PanelWrapper input {
+    padding: 0.75rem;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    width: 95%;
+    margin-bottom: 0.75rem;
+  }
+  .PanelWrapper textarea {
+    padding: 0.75rem;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    width: 95%;
+    margin-bottom: 0.75rem;
+  }
+ .apRoomCreateInput {
+    display: grid;
+ }
+ .apAddRoomButton {
+    background-color: lawngreen;
+    padding: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+ }
