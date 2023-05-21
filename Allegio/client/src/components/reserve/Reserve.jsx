@@ -121,7 +121,7 @@ const Reserve = ({ setOpen, hotelId, totalAmount }) => {
       // console.log(selectedRooms);
 
       setOpen(false);
-      // navigate("/");
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
