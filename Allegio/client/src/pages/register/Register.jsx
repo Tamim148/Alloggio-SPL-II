@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./register.css";
+
 function Register() {
   const [data, setData] = useState({
     username: "",
@@ -10,8 +11,6 @@ function Register() {
   });
   const [error, setError] = useState("");
   const [msg, setMsg] = useState("");
-
-  //const navigate = useNavigate();
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
@@ -22,7 +21,6 @@ function Register() {
     try {
       const url = "http://localhost:8800/api/auth/register";
       const { data: res } = await axios.post(url, data);
-      //  navigate("/login");
       setMsg(res.message);
     } catch (error) {
       if (
@@ -33,6 +31,11 @@ function Register() {
         setError(error.response.data.message);
       }
     }
+  };
+
+  const handleGoogleRegister = () => {
+    // Redirect the user to the Google registration URL
+    window.location.href = "http://localhost:8800/api/auth/google";
   };
 
   return (
@@ -74,13 +77,20 @@ function Register() {
               name="password"
               onChange={handleChange}
               value={data.password}
-              required
+            
               className="input"
             />
             {error && <div className="error_msg">{error}</div>}
             {msg && <div className="success_msg">{msg}</div>}
             <button type="submit" className="green_btn">
               Sign Up
+            </button>
+            {/* Google register button */}
+            <button
+              onClick={handleGoogleRegister}
+              className="google_register_btn"
+            >
+              Sign Up with Google
             </button>
           </form>
         </div>

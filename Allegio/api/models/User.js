@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema(
     
     password: {
       type: String,
-      required: true,
+      // required: true,
     },
     isAdmin: {
       type: Boolean,
@@ -27,8 +27,12 @@ const UserSchema = new mongoose.Schema(
     verified:{
       type: Boolean,
       default: false,
-    }
+    },
+    googleId: {
+      type: String,
+    },
   },
+  
   { timestamps: true }
 );
 
@@ -48,7 +52,7 @@ export const validate = (data) => {
 	const schema = Joi.object({
 		username: Joi.string().required().label("username"),
 		email: Joi.string().email().required().label("Email"),
-		password: passwordComplexity().required().label("Password"),
+		password: passwordComplexity().label("Password"),
 	});
 	return schema.validate(data);
 };

@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import "./login.css";
+
 function Login() {
   const [data, setData] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
@@ -35,6 +36,11 @@ function Login() {
     }
   };
 
+  const handleGoogleLogin = () => {
+    // Redirect the user to the Google authentication URL
+    window.location.href = "http://localhost:8800/api/auth/google/callback";
+  };
+
   return (
     <div className="login_container">
       <div className="login_form_container">
@@ -60,13 +66,17 @@ function Login() {
               className="Login_input"
             />
             <Link to="/forgot-password" style={{ alignSelf: "flex-start" }}>
-              <p style={{ padding: "0 15px" }}>Forgot Password ?</p>
+              <p style={{ padding: "0 15px" }}>Forgot Password?</p>
             </Link>
             {error && <div className="Login_error_msg">{error}</div>}
             <button type="submit" className="Login_green_btn">
               Sign In
             </button>
           </form>
+          {/* Google login button */}
+          <button onClick={handleGoogleLogin} className="Login_google_btn">
+            Sign In with Google
+          </button>
         </div>
         <div className="Login_right">
           <h1>New Here ?</h1>
