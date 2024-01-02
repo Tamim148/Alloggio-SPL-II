@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import multer from "multer"
 
 const HotelSchema = new mongoose.Schema({
     name: {
@@ -51,5 +51,28 @@ const HotelSchema = new mongoose.Schema({
       default: false,
     },
   });
+
+  const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './uploads'); // Make sure to create a 'uploads' folder in your project root
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + '-' + file.originalname);
+    },
+  });  
+
+
+  const upload = multer({ storage: storage });
+
+HotelSchema.post('validate', function (doc) {
+  if (!doc.photos) {
+    doc.photos = [];
+  }
+});
+
+HotelSchema.methods.addPhotos = function (photos) {
+  this.photos = this.photos.concat(photos);
+};
+
 
   export default mongoose.model("Hotel", HotelSchema)

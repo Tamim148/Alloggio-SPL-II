@@ -16,30 +16,71 @@ function AddHotel({ page }) {
   const [title, setTitle] = useState("");
   const [rooms, setRooms] = useState([]);
   const [featured, setFeatured] = useState(false);
+  const [photos, setPhotos] = useState([]);
 
   const navigate = useNavigate();
 
   const addHotel = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:8800/api/hotels", {
-        user,
-        access_token: localStorage.getItem("token"),
-        name,
-        address,
-        cheapestPrice,
-        city,
-        desc,
-        distance,
-        featured,
-        title,
-        type,
-        rooms,
+    const fileNames = Array.from(photos).map((file) => file.name);
+console.log(fileNames);
+    // try {
+    //   const response = await axios.post(
+    //     "http://localhost:8800/api/hotels",
+    //     {
+    //       user,
+    //       access_token: localStorage.getItem("token"),
+    //       name,
+    //       address,
+    //       cheapestPrice,
+    //       city,
+    //       desc,
+    //       distance,
+    //       featured,
+    //       title,
+    //       type,
+    //       rooms,
+    //       photos: fileNames, // Use the array of file names directly
+    //     }
+    //   );
+    //   console.log(response.data);
+    // } catch (error) {
+    //   console.error(error);
+    // }
+
+
+    const formData = new FormData();
+    formData.append("user", user);
+    formData.append("access_token", localStorage.getItem("token"));
+    formData.append("name", name);
+    formData.append("address", address);
+    formData.append("cheapestPrice", cheapestPrice);
+    formData.append("city", city);
+    formData.append("desc", desc);
+    formData.append("distance", distance);
+    formData.append("featured", featured);
+    formData.append("title", title);
+    formData.append("type", type);
+    
+    rooms.forEach((room, index) => {
+      formData.append(`rooms[${index}]`, room);
+    });
+  
+    if (Array.isArray(photos)) {
+      photos.forEach((photo) => {
+        formData.append("photos", photo);
       });
+    } else {
+      console.error("Photos is not an array");
+    }
+  
+    try {
+      const response = await axios.post("http://localhost:8800/api/hotels", formData);
       console.log(response.data);
     } catch (error) {
       console.error(error);
     }
+
 
     if (page === "listproperty") {
       showMessage(true);
@@ -70,7 +111,7 @@ function AddHotel({ page }) {
           </div>
         </div>
       )}
-      <form onSubmit={addHotel}>
+      <form onSubmit={addHotel} encType="multipart/form-data">
         <div className="apRoomCreateInput">
           <label htmlFor="hotel-name">Hotel name: </label>
           <input
@@ -161,6 +202,18 @@ function AddHotel({ page }) {
             required
           />
         </div>
+
+        <div className="apRoomCreateInput">
+  <label htmlFor="hotel-photos">Photos: </label>
+  <input
+    type="file"
+    accept="image/*"
+    onChange={(e) => setPhotos(Array.from(e.target.files))}
+    multiple
+    id="hotel-photos"
+  />
+</div>
+
 
         <button type="submit" className="apAddHotelButton">
           {" "}

@@ -44,8 +44,7 @@ export const login = async (req, res, next) => {
       return next(
         createError(404, "User not found, please give valid values!")
       );
-    //const useremail=await User.findOne({username:req.body.email})
-    // if(!useremail) return next(createError(404,"Invalid Email!!"))
+   
     const isPasswordCorrect = bcrypt.compareSync(
       req.body.password,
       user.password
@@ -55,25 +54,7 @@ export const login = async (req, res, next) => {
         createError(400, "Incorrect password, please give valid values!")
       );
 
-    // const istheretoken = await Token.findOne({ userId: user._id });
-    //  console.log(istheretoken)
-    // if(!istheretoken) return next(createError(400,"You have not verified your email , please check your mail and verify first!"))
-
-    /*  if (!user.verified) {
-          let token = await Token.findOne({ userId: user._id });
-          if (!token) {
-            token = await new Token({
-              userId: user._id,
-              token: crypto.randomBytes(32).toString("hex"),
-            }).save();
-            const url = `${process.env.BASE_URL}auth/${user.id}/verify/${token.token}`;
-            await sendEmail(user.email, "Verify Email", url);
-          }
-    
-          return res
-            .status(400)
-            .send({ message: "An Email sent to your account please verify" });
-        } */
+   
 
     const token = jwt.sign(
       { id: user._id, isAdmin: user.isAdmin },
@@ -136,3 +117,23 @@ export const verifyToken = async (req, res, next) => {
     return res.status(401).send({ message: "Invalid Token" });
   }
 };
+
+
+export const loginwithgoogle = async (req, res) => {
+  try {
+    
+    console.log("hi ");
+    const token = jwt.sign(
+      { id: req.user._id, isAdmin: req.user.isAdmin },
+      process.env.JWT
+    );
+     console.log(token);
+     localStorage.setItem("token", token);
+    const { password, isAdmin, ...otherDetails } = req.user._doc;
+    res.status(200).json({ details: { ...otherDetails }, isAdmin, token });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+

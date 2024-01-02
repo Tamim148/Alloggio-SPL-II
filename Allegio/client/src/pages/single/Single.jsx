@@ -66,7 +66,21 @@ const Single = () => {
     if (user) {
       setOpenModal(true);
     } else {
-      navigate("/login");
+      // Check if a session cookie is present
+      const isSessionCookiePresent = () => {
+        return document.cookie.split(';').some((cookie) => {
+          const trimmedCookie = cookie.trim();
+          return trimmedCookie.startsWith('connect.sid'); // Replace with your actual cookie name
+        });
+      };
+  
+      // If a session cookie is present, redirect to the Reserve or Book Now page
+      if (isSessionCookiePresent()) {
+        setOpenModal(true);
+      } else {
+        // If neither user nor session cookie is present, redirect to login page
+        navigate("/login");
+      }
     }
   };
   return (

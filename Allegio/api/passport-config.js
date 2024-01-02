@@ -19,13 +19,15 @@ passport.use(
       clientID: '1021321517117-6npji70d3r50634vc9d6tjri5of58gs2.apps.googleusercontent.com',
       clientSecret: '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',
       callbackURL: 'http://localhost:8800/api/auth/google/callback',
+      scope: ['profile','email']
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
         // Check if the user already exists in the database based on Google ID
-        let user = await User.findOne({ googleId: profile.id });
+        let user = await User.findOne({ email: profile.emails[0].value });
 
         if (user) {
+          console.log(user);
           // User already exists, return the user
           return done(null, user);
         }
@@ -38,7 +40,7 @@ passport.use(
           isAdmin: false,   // Set to false for new users
           verified: true,   // Set to true for new users
         });
-
+        console.log(user);
         // Return the newly created user
         return done(null, user);
       } catch (error) {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState,useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import "./login.css";
@@ -36,10 +36,55 @@ function Login() {
     }
   };
 
-  const handleGoogleLogin = () => {
+  const handleGoogleLogin = async (e)  => {
     // Redirect the user to the Google authentication URL
-    window.location.href = "http://localhost:8800/api/auth/google/callback";
+    // window.location.href = ";
+    try {
+      const url = "http://localhost:8800/api/auth/google/";
+      const { data: res } = await axios.get(url, data);
+
+      localStorage.setItem("token", res.token);
+      // set user from the database to context
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.details });
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.log(error);
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.message);
+      }
+    }
   };
+  
+
+  // const handleGoogleLoginSuccess = async () => {
+    
+  //   try {
+  //     // You might want to customize the URL based on your setup
+  //     const url = "http://localhost:8800/api/auth/login/success";
+  //     const { data: res } = await axios.get(url);
+
+  //     if (res.error) {
+  //       setError("Google login failed");
+  //     } else {
+  //       dispatch({ type: "GOOGLE_LOGIN_SUCCESS", payload: res.user });
+  //       navigate("/", { replace: true });
+  //     }
+  //   } catch (error) {
+  //     console.log("Error handling Google login callback:", error);
+  //     setError("Google login failed");
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   // Check if the current route is the Google login success route
+  //   if (window.location.pathname === "/google-login-success") {
+  //     handleGoogleLoginSuccess();
+  //   }
+  // }, []);
 
   return (
     <div className="login_container">

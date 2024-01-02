@@ -2,7 +2,17 @@
 import Hotel from "../models/Hotel.js";
 import Room from "../models/Room.js";
 export const createHotel = async (req, res, next) => {
-    
+  try {
+    console.log("Request Body:", req.body);
+    console.log("Request File:", req.file);
+    let photos = [];
+
+    // Check if req.files is defined and not empty
+    if (req.files && req.files.length > 0) {
+      // Take the first file if there are multiple files
+      photos = req.files.map((file) => file.path);
+    }
+
     const newHotel = new Hotel({
       name: req.body.name,
       address: req.body.address,
@@ -13,17 +23,19 @@ export const createHotel = async (req, res, next) => {
       featured: req.body.featured,
       title: req.body.title,
       type: req.body.type,
-      rooms:req.body.rooms
+      rooms: req.body.rooms,
+      photos: photos 
     });
 
+    const savedHotel = await newHotel.save();
+    console.log("Saved Hotel:", savedHotel);
 
-    try {
-      const savedHotel = await newHotel.save();
-      res.status(200).json(savedHotel);
-    } catch (err) {
-      next(err);
-    }
-  };
+    res.status(200).json(savedHotel);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+};
   export const updateHotel = async (req, res, next) => {
     try {
       const updatedHotel = await Hotel.findByIdAndUpdate(

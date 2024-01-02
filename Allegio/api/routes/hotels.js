@@ -1,30 +1,30 @@
 import express from "express";
+import path from 'path'; // Add this line to import the 'path' module
 import { countByCity, countByType, createHotel, deleteHotel, getHotel, getHotelRooms, getHotels, updateHotel } from "../controllers/hotel.js";
 import { verifyAdmin } from "../utils/verifyToken.js";
-const router=express.Router();
+import { upload } from "../middlewares/multer-config.js";
 
-//CREATE
-router.post("/", verifyAdmin, createHotel)
+const __filename = new URL(import.meta.url).pathname;
+const __dirname = path.dirname(__filename);
+const router = express.Router();
 
+// CREATE
+router.post('/',  upload.array('photos', 5), createHotel);
+router.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
-//UPDATE
+// UPDATE
+router.put("/:id", updateHotel);
 
-router.put("/:id", updateHotel)
-  
-//DELETE
+// DELETE
+router.delete("/:id", deleteHotel);
 
-router.delete("/:id",  deleteHotel)
-//GET
-
+// GET
 router.get("/find/:id", getHotel);
 
-
-//GET ALL
-
-router.get("/",getHotels)
-
+// GET ALL
+router.get("/", getHotels);
 router.get("/countByCity", countByCity);
-router.get("/countByType",countByType);
+router.get("/countByType", countByType);
 router.get("/room/:id", getHotelRooms);
 
-export default router
+export default router;

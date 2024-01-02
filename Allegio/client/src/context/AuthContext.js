@@ -27,6 +27,13 @@ const AuthReducer = (state, action) => {
         loading: true,
         error: null,
       };
+     case "GOOGLE_LOGIN_SUCCESS":
+      console.log("Dispatching GOOGLE_LOGIN_SUCCESS:", action.payload);
+      return {
+        user: action.payload,
+        loading: false,
+        error: null,
+      };
     case "LOGIN_SUCCESS":
       return {
         user: action.payload,
@@ -70,6 +77,7 @@ export const AuthContextProvider = ({ children }) => {
         if (res.status == 200)
         {
           dispatch({type: "LOGIN_SUCCESS", payload: res.data.user});
+          
           localStorage.setItem("user", JSON.stringify(res.data.user));
         }
   
